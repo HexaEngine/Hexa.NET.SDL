@@ -23,7 +23,7 @@ jobs:
       bin-name-linux-normalized: libSDL3.so
       bin-name-android-normalized: libSDL3.so
       bin-name-windows-normalized: SDL3.dll
-      linux-deps: "build-essential cmake libasound2-dev libpulse-dev libaudio-dev libx11-dev libxext-dev libxrandr-dev libxcursor-dev libxfixes-dev libxi-dev libxinerama-dev libxss-dev libwayland-dev libwayland-egl-backend-dev libdbus-1-dev libudev-dev libgles2-mesa-dev libegl1-mesa-dev libgl1-mesa-dev libibus-1.0-dev fcitx-libs-dev libsamplerate0-dev ccache libjack-jackd2-dev libdrm-dev libpipewire-0.3-dev libvulkan-dev libdecor-0-dev qtwayland5 libxkbcommon-dev libsndio-dev"
+      linux-deps: "build-essential git make pkg-config cmake ninja-build gnome-desktop-testing libasound2-dev libpulse-dev libaudio-dev libfribidi-dev libjack-dev libsndio-dev libx11-dev libxext-dev libxrandr-dev libxcursor-dev libxfixes-dev libxi-dev libxss-dev libxtst-dev libxkbcommon-dev libdrm-dev libgbm-dev libgl1-mesa-dev libgles2-mesa-dev libegl1-mesa-dev libdbus-1-dev libibus-1.0-dev libudev-dev libthai-dev libpipewire-0.3-dev libwayland-dev libdecor-0-dev"
       android-deps: "build-essential cmake ninja-build"
 
   create-pr:
