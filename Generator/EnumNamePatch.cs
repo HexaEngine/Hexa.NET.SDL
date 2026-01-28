@@ -1,7 +1,9 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using CppAst;
+
 using HexaGen;
 using HexaGen.Core.Mapping;
+using HexaGen.CppAst.Model.Declarations;
+using HexaGen.CppAst.Model.Types;
 using HexaGen.Patching;
 using System.Diagnostics.CodeAnalysis;
 

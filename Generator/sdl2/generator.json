@@ -9,6 +9,8 @@
   "GenerateMetadata": false,
   "UseCustomContext": true,
   "ImportType": "FunctionTable",
+  "WrapPointersAsHandle": true,
+  "LogLevel": "Warning",
   "IncludeFolders": [
     "C:\\VulkanSDK\\1.3.250.0\\Include\\"
   ],
@@ -27,6 +29,7 @@
     "PFNGLGETTRANSFORMFEEDBACKI_VPROC": "PFNGLGETTRANSFORMFEEDBACKI_VPROC",
     "SDL_SysWMinfo": "SDLSysWMInfo",
     "SDL_SysWMmsg": "SDLSysWMMsg",
+    "SDL_iconv_t": "SDLIconvT",
     "uint8_t": "byte",
     "uint16_t": "ushort",
     "uint32_t": "uint",

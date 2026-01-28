@@ -1,4 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using Generator;
 using HexaGen;
 using HexaGen.Patching;
 using System.Text;
@@ -38,16 +39,16 @@ for (int i = filesSdl3.Count - 1; i >= 0; i--)
     }
 }
 
-BatchGenerator.Create()
+BatchGenerator.Create().WithArgs(args)
 #if true
     // SDL 2
-    .Setup<CsCodeGenerator>("sdl2/generator.json")
+    .Setup<CodeGenerator>("sdl2/generator.json")
     .AddPrePatch(new NamingPatch(["SDL"], NamingPatchOptions.None))
     .AddPrePatch(new EnumNamePatch())
-    .Generate(["sdl2/include/main.h"], "../../../../Hexa.NET.SDL2/Generated", filesSdl2)
+    .Generate(["sdl2/include/main.h"], "Hexa.NET.SDL2/Generated", filesSdl2)
 #endif
     // SDL 3
-    .Setup<CsCodeGenerator>("sdl3/generator.json")
+    .Setup<CodeGenerator>("sdl3/generator.json")
     .AddPrePatch(new NamingPatch(["SDL"], NamingPatchOptions.None))
     .AddPrePatch(new ConstantsToEnumPatch("SDL_BLENDMODE_", "SDLBlendMode", "uint"))
     //.AddPrePatch(new ConstantsToEnumPatch("SDL_WINDOW_", "SDLWindowFlags", "uint"))
@@ -65,6 +66,6 @@ BatchGenerator.Create()
     //.AddPrePatch(new ConstantsToEnumPatch("SDL_GPU_COLORCOMPONENT_", "SDLGPUColorComponentFlags", "byte"))
     .AddPrePatch(new ConstantsToEnumPatch("SDL_GPU_SHADERFORMAT_", "SDLGPUShaderFormat", "uint"))
     .AddPrePatch(new ConstantsToEnumPatch("SDL_GPU_TEXTUREUSAGE_", "SDLGPUTextureUsageFlags", "uint"))
-    .Generate(filesSdl3, "../../../../Hexa.NET.SDL3/Generated")
+    .Generate(filesSdl3, "Hexa.NET.SDL3/Generated")
 
     .Finish();

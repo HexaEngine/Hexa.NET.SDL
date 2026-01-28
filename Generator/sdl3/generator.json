@@ -6,8 +6,10 @@
   "GenerateConstructorsForStructs": true,
   "GenerateSizeOfStructs": false,
   "GeneratePlaceholderComments": false,
-  "GenerateMetadata": false,
+  "GenerateMetadata": true,
   "UseCustomContext": true,
+  "WrapPointersAsHandle": true,
+  "LogLevel": "Warning",
   "IncludeFolders": [
     "C:\\VulkanSDK\\1.3.250.0\\Include\\"
   ],
@@ -123,6 +125,8 @@
     "SDL_KeyboardID": "uint",
     "SDL_MouseID": "uint",
     "SDL_PenID": "uint",
-    "SDL_EGLAttrib": "nint"
+    "SDL_EGLAttrib": "nint",
+    "SDL_GLContext": "SDLGLContext",
+    "SDL_iconv_t": "SDLIconvT"
   }
 }

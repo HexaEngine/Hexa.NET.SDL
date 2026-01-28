@@ -1,0 +1,82 @@
+version: "1.0"
+
+env:
+  SDL2-Version: "release-2.32.8"
+  SDL3-Version: "release-3.2.20"
+  Workspace: "./.CosyCache/Workspace"
+
+targets:
+  update-headers:
+    steps:
+      - name: Make temp dir
+        uses: core:mkdir@v1
+        with:
+          path: ${{ env.Workspace }}
+
+
+      - name: Query Version
+        shell: csharp
+        run: |
+          using System.Net.Http;
+          using System.Net.Http.Json;
+          using System.Text.Json.Serialization;
+
+          class ReleaseResponse 
+          { 
+            [JsonPropertyName("tag_name")]
+            public string TagName { get; set; }
+
+            [JsonPropertyName("prerelease")]
+            public bool PreRelease { get; set; }
+
+            [JsonPropertyName("draft")]
+            public bool Draft { get; set; }
+          }
+
+          
+          HttpClient client = new();
+          client.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:146.0) Gecko/20100101 Firefox/146.0");
+          var releases = await client.GetFromJsonAsync<ReleaseResponse[]>("https://api.github.com/repos/libsdl-org/SDL/releases");
+
+          var sdl2Latest = releases
+              .Where(r => !r.PreRelease && !r.Draft)
+              .Where(r => r.TagName.StartsWith("release-2."))
+              .First()
+              .TagName;
+
+          var sdl3Latest = releases
+              .Where(r => !r.PreRelease && !r.Draft)
+              .Where(r => r.TagName.StartsWith("release-3."))
+              .First()
+              .TagName;
+
+          Variables.SetEnvironmentVariable("SDL2-Version", sdl2Latest, true);
+          Variables.SetEnvironmentVariable("SDL3-Version", sdl3Latest, true);
+
+      - name: Clone SDL2
+        uses: core:checkout@v1
+        with:
+          repo: "https://github.com/libsdl-org/SDL.git"
+          ref: ${{ env.SDL2-Version }}
+          submodules: true
+          path: "${{ env.Workspace }}/SDL2"
+
+      - name: Clone SDL3
+        uses: core:checkout@v1
+        with:
+          repo: "https://github.com/libsdl-org/SDL.git"
+          ref: ${{ env.SDL3-Version }}
+          submodules: true
+          path: "${{ env.Workspace }}/SDL3"
+
+      - name: Copy Headers.
+        shell: bash
+        run: |
+          cp -r ${{ env.Workspace }}/SDL2/include/* Generator/sdl2/include
+          cp -r ${{ env.Workspace }}/SDL3/include/SDL3/* Generator/sdl3/include
+
+  HexaGen Generate:
+    needs: [update-headers]
+    steps:
+      - name: Run generator project
+        uses: ./generate.yml

@@ -1,0 +1,25 @@
+version: "1.0"
+
+parameters:
+  - name: path
+    description: "Generator project file path (optional, defaults to Generator/Generator.csproj)"
+    required: false
+    default: "Generator/Generator.csproj"
+    type: string
+
+action:
+  name: "HexaGen Generate"
+  main:
+    steps:
+      - name: Build and Generate HexaGen project
+        run: |
+          dotnet build ${{ parameters.path }} -o ./.CosyCache/HexaGen/generator/
+          cd ./.CosyCache/HexaGen/generator
+          Generator.exe --targets all --output-dir "../../../"
+
+  post:
+    steps:
+      - name: Cleanup
+        shell: csharp
+        run: |
+          FileSystem.DeleteDirectory("./.CosyCache/HexaGen/generator", true, true);
