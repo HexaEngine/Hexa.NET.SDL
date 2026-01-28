@@ -12,6 +12,7 @@ jobs:
       repo-path: SDL
       cmake-flags: "-DCMAKE_BUILD_TYPE=Release -DSDL_STATIC=OFF -DSDL_SHARED=ON"
       cmake-flags-windows: "-DCMAKE_SYSTEM_VERSION=10.0.26100.0"
+      cmake-flags-android: "-DCMAKE_POSITION_INDEPENDENT_CODE=ON"
       ndk-version: "26.3.11579264"
       android-api: "21"
       build-output-dir: artifacts
